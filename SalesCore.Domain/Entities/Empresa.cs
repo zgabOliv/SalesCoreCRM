@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SalesCore.Domain.Entities
+namespace SalesCore.Domain.Entities;
+
+public partial class Empresa
 {
-    internal class Empresa
-    {
+    public int IdEmpresa { get; set; }
 
-        public string IdEmpresa { get; set; }
+    public string RazaoSocial { get; set; } = null!;
 
-        public string razaoSocial { get; set; }
+    public string? NomeFantasia { get; set; }
 
-        public string nomeFantasia { get; set; }
+    public string? Cnpj { get; set; }
 
-        public string cnpj { get; set; }
+    public string? Email { get; set; }
 
-        public string email { get; set; }
+    public string? Telefone { get; set; }
 
-        public string telefone { get; set; }
+    public DateOnly? DataCadastro { get; set; }
 
-        public DateTime dataCadastro { get; set; }    
+    public bool? Ativo { get; set; }
 
-        public Boolean ativo { get; set; }  
-    }
+    public virtual ICollection<Contato> Contatos { get; set; } = new List<Contato>();
+
+    public virtual ICollection<Oportunidade> Oportunidades { get; set; } = new List<Oportunidade>();
 }

@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SalesCore.Domain.Entities
+namespace SalesCore.Domain.Entities;
+
+public partial class Atividade
 {
-    internal class Atividade
-    {
-        public int IdAtividade { get; set; }
-        public string tipo { get; set; }
-        public string assunto { get; set; }    
-        public string descricao { get; set; }
+    public int IdAtividade { get; set; }
 
-        public DateTime dataAtividade { get; set; }
+    public string? Tipo { get; set; }
 
-        public string situacao { get; set; }
+    public string? Assunto { get; set; }
 
-        public int idOportunidade { get; set; } 
+    public string? Descricao { get; set; }
 
-        public int idUsuarioResponsavel { get; set; }
-    }
+    public DateTime? DataAtividade { get; set; }
+
+    public string? Situacao { get; set; }
+
+    public int IdOportunidade { get; set; }
+
+    public int IdUsuarioResponsavel { get; set; }
+
+    public virtual Oportunidade IdOportunidadeNavigation { get; set; } = null!;
+
+    public virtual Usuario IdUsuarioResponsavelNavigation { get; set; } = null!;
 }

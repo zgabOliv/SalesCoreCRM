@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SalesCore.Domain.Entities
+namespace SalesCore.Domain.Entities;
+
+public partial class Etapa
 {
-    internal class Etapa
-    {
-        public int idEtapa { get; set; }
+    public int IdEtapa { get; set; }
 
-        public string nome { get; set; }
+    public string Nome { get; set; } = null!;
 
-        public int ordem { get; set; }
+    public int? Ordem { get; set; }
 
-        public int percentualProbabilidade { get; set; }
+    public decimal? PercentualProbabilidade { get; set; }
 
-        public int ativo { get; set; }
-    }
+    public bool? Ativo { get; set; }
+
+    public virtual ICollection<Oportunidade> Oportunidades { get; set; } = new List<Oportunidade>();
 }

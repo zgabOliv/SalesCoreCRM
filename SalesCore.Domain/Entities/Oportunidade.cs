@@ -1,28 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SalesCore.Domain.Entities
+namespace SalesCore.Domain.Entities;
+
+public partial class Oportunidade
 {
-    internal class Oportunidade
-    {
-        public int idOportunidade { get; set; }
-        public string titulo { get; set; }
-        public string descricao { get; set; }
+    public int IdOportunidade { get; set; }
 
-        public int valorEstimado { get; set; }
+    public string Titulo { get; set; } = null!;
 
-        public DateTime dataAbertura { get; set; }
+    public string? Descricao { get; set; }
 
-        public DateTime dataPrevisaoFechamento { get; set; }
+    public decimal? ValorEstimado { get; set; }
 
-        public int idEmpresa { get; set; }
+    public DateOnly? DataAbertura { get; set; }
 
-        public int idEtapa { get; set; }
+    public DateOnly? DataPrevisaoFechamento { get; set; }
 
-        public int idUsuarioResponsavel { get; set; }
+    public int IdEmpresa { get; set; }
 
-    }
+    public int IdEtapa { get; set; }
+
+    public int IdUsuarioResponsavel { get; set; }
+
+    public virtual ICollection<Atividade> Atividades { get; set; } = new List<Atividade>();
+
+    public virtual Empresa IdEmpresaNavigation { get; set; } = null!;
+
+    public virtual Etapa IdEtapaNavigation { get; set; } = null!;
+
+    public virtual Usuario IdUsuarioResponsavelNavigation { get; set; } = null!;
 }

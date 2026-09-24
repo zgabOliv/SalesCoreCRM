@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SalesCore.Domain.Entities
+namespace SalesCore.Domain.Entities;
+
+public partial class Contato
 {
-    internal class Contato
-    {
+    public int IdContato { get; set; }
 
-        public int IdContato { get; set; }
-        public string nome { get; set; }
-        public string email { get; set; }
-        public string telefone { get; set; }
-        public string cargo { get; set; }
+    public string Nome { get; set; } = null!;
 
-        public int ativo { get; set; }
-        public int idEmpresa { get; set; }
-    }
+    public string? Email { get; set; }
+
+    public string? Telefone { get; set; }
+
+    public string? Cargo { get; set; }
+
+    public bool? Ativo { get; set; }
+
+    public int? IdEmpresa { get; set; }
+
+    public virtual Empresa? IdEmpresaNavigation { get; set; }
 }
