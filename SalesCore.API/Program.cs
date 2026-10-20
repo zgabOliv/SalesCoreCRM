@@ -1,22 +1,37 @@
 using Microsoft.EntityFrameworkCore;
+using SalesCore.Application.Services;
+using SalesCore.Domain.Interfaces;
 using SalesCore.Infrastructure.Data;
+using SalesCore.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<SalesCoreDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException("A connection string 'DefaultConnection' não foi configurada.");
+}
+
+builder.Services.AddDbContext<SalesCoreDbContext>(options => options.UseSqlServer(connectionString));
+
+// Repositórios
+builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
+builder.Services.AddScoped<IContatoRepository, ContatoRepository>();
+builder.Services.AddScoped<IOportunidadeRepository, OportunidadeRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
+// Serviços de aplicação
+builder.Services.AddScoped<EmpresaService>();
+builder.Services.AddScoped<ContatoService>();
+builder.Services.AddScoped<OportunidadeService>();
+builder.Services.AddScoped<UsuarioService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -24,9 +39,5 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
